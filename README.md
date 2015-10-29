@@ -9,6 +9,10 @@ The frontend with two lists, each with a custom name and movies. Hover over a mo
 <img src="/screenshot2.png" />
 Search by name or directly via imdb id
 
+# Supported browsers
+* Works best in Chrome and Safari
+* Firefox not yet supported
+
 # Credits
 - http://projects.lukehaas.me/css-loaders/ - CSS based loading spinner
 - http://angularjs.org
