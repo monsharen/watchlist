@@ -19,3 +19,7 @@ Search by name or directly via imdb id
 - http://www.dropbox.com
 - http://omdbapi.com
 - http://www.youtube.com
+
+# License
+The MIT License (MIT)
+Copyright (c) 2015 Thomas Rosenquist
