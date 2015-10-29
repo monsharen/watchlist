@@ -1,0 +1,67 @@
+<!doctype html>
+<html ng-app="movieApp">
+	<head>
+		<title>watchlist</title>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+
+		<script src="script.js"></script>
+		<script src="services.js"></script>
+		<script src="directives.js"></script>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+		<link rel="stylesheet" type="text/css" href="spinner.css" />
+	</head>
+	<body ng-controller="MovieController as ctrl" id="movieController" ng-keyup="ctrl.captureKeyPress($event.which);">
+
+		<div ng-show="ctrl.loadingIndicators" id="loadingIndicator" class="loader">Loading...</div>
+
+		<div ng-if="!ctrl.authenticationToken">
+			<div class="jumbotron">
+				<h1>Hi there!</h1>
+				<p>You need a drop box account to use this service</p>
+				<p><b>Note:</b> This service have only been tested with Chrome and Safari. It probably does not work in Firefox.</p>
+				<button class="btn btn-primary btn-lg btn-success" ng-click="ctrl.login()">Log in</button>
+			</div>
+		</div>
+
+		<div ng-if="ctrl.authenticationToken">
+			<div id="videoElement" ng-click="ctrl.closeTrailer()" ng-show="ctrl.trailerPlaying"></div>
+
+			<form id="searchForm" ng-submit="ctrl.search()">
+				<input id="searchInput" type="text" class="form-control" ng-model="ctrl.searchQuery" placeholder="Search for movie... (name of movie or use pattern imdb:[imdb id])">
+			</form>
+			<div id="searchResult" ng-show="ctrl.searchResults.length > 0">
+				<ul class="movieList">
+					<li class="movieListItem" ng-repeat="movie in ctrl.searchResults track by $index">
+						<movie deletelink="false" addlink="true" trailer="true" imdb="false"></movie>
+					</li>
+				</ul>
+			</div>
+
+			<nav class="navbar navbar-inverse">
+				<ul class="nav navbar-nav">
+					<li ng-repeat="list in ctrl.allLists track by $index" role="presentation" ng-class="{active: $index==ctrl.currentlySelectedList}">
+						<a href ng-click="ctrl.currentlySelectedList = $index" ng-dblclick="ctrl.renameList($index)">{{list.name}} <span class="badge">{{list.movies.length}}</span></a>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right"> 
+					<li class="menuButtonGroup">
+						<button type="button" class="btn btn-primary navbar-btn" ng-click="ctrl.createNewList()">Create new...</button> 
+						<button type="button" class="btn btn-danger navbar-btn" ng-click="ctrl.deleteList()">Delete</button>
+					</li>
+				</ul>
+			</nav>
+
+			<div>
+				<ul class="movieList">
+					<li class="movieListItem" ng-repeat="movie in ctrl.allLists[ctrl.currentlySelectedList].movies track by $index">
+						<movie deletelink="true" trailer="true" imdb="true"> </movie>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>
