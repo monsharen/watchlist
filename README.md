@@ -3,8 +3,8 @@ A movie watchlist management system using Dropbox for storage and authentication
 
 The frontend is built with AngularJs and Bootstrap with a few home cooked components.
 
-<img src="/images/screenshot1.png" />
-<img src="/images/screenshot2.png" />
+<img src="/screenshot1.png" />
+<img src="/screenshot2.png" />
 
 # Credits
 - http://projects.lukehaas.me/css-loaders/ - CSS based loading spinner
