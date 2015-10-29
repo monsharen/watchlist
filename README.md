@@ -3,7 +3,10 @@ A movie watchlist management system using Dropbox for storage and authentication
 
 The frontend is built with AngularJs and Bootstrap with a few home cooked components.
 
+The front end with two lists, each with a custom name and movies. Hover over a movie to get additional information and buttons for trailers.
 <img src="/screenshot1.png" />
+
+Search by name or directly via imdb id
 <img src="/screenshot2.png" />
 
 # Credits
