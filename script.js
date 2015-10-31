@@ -207,18 +207,6 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'alertif
 		authService.authenticate();
 	};
 
-	this.onDrop = angular.bind(this, function(data, ev) {
-		this.status = 'dropped';
-		this.dropped = data;
-		var target = angular.element(ev.target);
-		target.removeClass('over');
-		target.addClass('drop');
-	});
-
-	this.onDragStart = angular.bind(this, function(ev) {
-        this.status = 'drag started!';
-      });
-
 	authService.isUserAuthenticated(
 		function (token) {
 			console.log("user is authenticated");
