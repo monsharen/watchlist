@@ -40,3 +40,18 @@ movieApp.directive('movie', function() {
         }
     };
 });
+
+movieApp.directive('sortable', function() {
+    return {
+        restrict: 'A',
+        template: function(element, attrs) {
+            var predicate = attrs.predicate;
+            var title = attrs.title;
+            var icon = attrs.icon;
+            return "<button type=\"button\" class=\"btn btn-xs\" ng-class=\"{'btn-info': predicate=='" + predicate + "'}\" ng-click=\"predicate='" + predicate + "';reverse=!reverse\">" + 
+            title + " " +
+            "<span class=\"glyphicon\" ng-class=\"{'" + icon + "': !reverse, '" + icon + "-alt': reverse}\" aria-hidden=\"true\"></span>" +
+            "</button>";
+        }
+    };
+});

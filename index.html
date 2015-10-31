@@ -57,11 +57,9 @@
 				</ul>
 			</nav>
 			<div>
-				<ul class="nav nav-pills">
-					<li role="presentation" ng-class="{active: predicate=='imdbRating'}"><a href ng-click="predicate='imdbRating';reverse=!reverse">IMDB Rating</a></li>
-					<li role="presentation" ng-class="{active: predicate=='Title'}"><a href ng-click="predicate='Title';reverse=!reverse">Title</a></li>
-					<li role="presentation" ng-class="{active: predicate=='Year'}"><a href ng-click="predicate='Year';reverse=!reverse">Year</a></li>
-				</ul>
+				<span sortable predicate="imdbRating" title="IMDB Rating" icon="glyphicon-sort-by-attributes"></span>
+				<span sortable predicate="Title" title="Title" icon="glyphicon-sort-by-alphabet"></span>
+				<span sortable predicate="Year" title="Year" icon="glyphicon-sort-by-order"></span>
 			</div>
 			<div>
 				<ul class="movieList">
