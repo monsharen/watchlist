@@ -8,6 +8,8 @@
 		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 
+		<script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.5/dist/js/ngAlertify.js"></script>
+
 		<script src="script.js"></script>
 		<script src="services.js"></script>
 		<script src="directives.js"></script>
@@ -43,7 +45,7 @@
 
 			<nav class="navbar navbar-inverse">
 				<ul class="nav navbar-nav">
-					<li ng-repeat="list in ctrl.allLists track by $index" role="presentation" ng-class="{active: $index==ctrl.currentlySelectedList}">
+					<li ng-repeat="list in ctrl.allLists track by $index" role="presentation" ng-class="{active: $index==ctrl.currentlySelectedList}" >
 						<a href ng-click="ctrl.currentlySelectedList = $index" ng-dblclick="ctrl.renameList($index)">{{list.name}} <span class="badge">{{list.movies.length}}</span></a>
 					</li>
 				</ul>
@@ -64,7 +66,7 @@
 			<div>
 				<ul class="movieList">
 					<li class="movieListItem" ng-repeat="movie in ctrl.allLists[ctrl.currentlySelectedList].movies | orderBy:predicate:reverse | filter:ctrl.searchQuery">
-						<movie deletelink="true" trailer="true" imdb="true"> </movie>
+						<movie deletelink="true" trailer="true" imdb="true" move="true"> </movie>
 					</li>
 				</ul>
 			</div>

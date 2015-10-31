@@ -1,7 +1,7 @@
-var movieApp = angular.module('movieApp', []);
+var movieApp = angular.module('movieApp', ["ngAlertify"]);
 
-movieApp.controller('MovieController', ['$scope', '$http', '$location', 'omdbService', 'dropboxService', 'authService', 'searchService', 
-	function($scope, $http, $location, omdbService, dropboxService, authService, searchService) {
+movieApp.controller('MovieController', ['$scope', '$http', '$location', 'alertify', 'omdbService', 'dropboxService', 'authService', 'searchService', 
+	function($scope, $http, $location, alertify, omdbService, dropboxService, authService, searchService) {
 
 	var ctrl = this;
 	this.$scope = $scope;
@@ -16,7 +16,7 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'omdbSer
 
 	this.captureKeyPress = function(keyId) {
 		if (keyId === 27) {
-			ctrl.clearSearch()	
+			ctrl.clearSearch();
 		}
 	};
 
@@ -33,7 +33,7 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'omdbSer
 				ctrl.upload();
 			},
 			function(error) {
-
+				alertify.error("Failed to retrieve full movie details from OMDB.");
 			},
 			function() {
 				ctrl.hideLoading();
@@ -137,6 +137,7 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'omdbSer
 			function(error) {
 				console.log("search failed");
 				console.log(error);
+				alertify.log("Search failed: " + error);
 			},
 			function() {
 				ctrl.hideLoading();
@@ -171,6 +172,9 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'omdbSer
 					console.log("data file do no yet exist. creating empty list");
 					ctrl.allLists = dropboxService.getEmptyFile();
 					console.log(ctrl.allLists);
+					alertify.success("Hello there! A new file have been created on your dropbox account containing all of your data. It will automatically get updated when you make changes to your lists.");
+				} else {
+					alertify.error("Failed to load file from Dropbox account: " + error);
 				}
 			},
 			function() {
@@ -186,10 +190,12 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'omdbSer
 			function(response) {
 				console.log("upload successful");
 				console.log(response);
+				alertify.success("Changes saved.");
 			},
 			function(error) {
 				console.log("request failed: ");
 				console.log(error);
+				alertify.error("Failed to save changes to Dropbox: " + error);
 			},
 			function() {
 				ctrl.hideLoading();
@@ -200,6 +206,18 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'omdbSer
 	this.login = function() {
 		authService.authenticate();
 	};
+
+	this.onDrop = angular.bind(this, function(data, ev) {
+		this.status = 'dropped';
+		this.dropped = data;
+		var target = angular.element(ev.target);
+		target.removeClass('over');
+		target.addClass('drop');
+	});
+
+	this.onDragStart = angular.bind(this, function(ev) {
+        this.status = 'drag started!';
+      });
 
 	authService.isUserAuthenticated(
 		function (token) {

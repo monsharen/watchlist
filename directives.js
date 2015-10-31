@@ -2,7 +2,6 @@ movieApp.directive('movie', function() {
 
 	return {
         restrict: 'E',
-       //replace: true,
         template: function(element, attrs) {
 
             function button(command, icon, caption, className) {
@@ -12,6 +11,7 @@ movieApp.directive('movie', function() {
             var trailer = attrs.trailer == 'true';
             var renderAdd = attrs.addlink == 'true';
             var renderImdb = attrs.imdb == 'true';
+            var renderMove = attrs.move == 'true';
 
             console.log("adding movie result: " + renderDelete + ", " + trailer + ", " + renderAdd);
 
@@ -22,6 +22,7 @@ movieApp.directive('movie', function() {
                     (renderImdb ? '<div><img class="imdbRating" src="imdb.png" />{{movie.imdbRating}}</div>' : '') +
                     (renderAdd ? button("addMovie", "glyphicon-pencil", "Add", "btn-success") : '') +
                     (trailer ? button("playTrailer", "glyphicon-play-circle", "Trailer", "btn-default") : '') +
+                    (renderMove ? button("moveMovie", "glyphicon-transfer", "Move", "btn-warning") : '') +
                     (renderDelete ? button("removeMovie", "glyphicon-trash", "Remove", "btn-danger") : '') +
                 '</div>';
 
@@ -30,7 +31,6 @@ movieApp.directive('movie', function() {
             '<div class="movie" ng-mouseenter="show=true" ng-mouseleave="show=false" style="background-image: url(\'{{movie.Poster}}\'), url(\'movie-placeholder.jpg\');">' + 
             '<center>' +
             menuHtml +
-            //'<div>test</div>' +
             '</center>' +
             '</div>' + 
             '</div>';
