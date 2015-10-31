@@ -31,7 +31,7 @@
 			<div id="videoElement" ng-click="ctrl.closeTrailer()" ng-show="ctrl.trailerPlaying"></div>
 
 			<form id="searchForm" ng-submit="ctrl.search()">
-				<input id="searchInput" type="text" class="form-control" ng-model="ctrl.searchQuery" placeholder="Search for movie... (name of movie or use pattern imdb:[imdb id])">
+				<input id="searchInput" type="text" class="form-control" ng-model="ctrl.searchQuery" placeholder="Search for movie... (name of movie or use pattern imdb:[imdb id])" autocomplete="off">
 			</form>
 			<div id="searchResult" ng-show="ctrl.searchResults.length > 0">
 				<ul class="movieList">
@@ -54,10 +54,16 @@
 					</li>
 				</ul>
 			</nav>
-
+			<div>
+				<ul class="nav nav-pills">
+					<li role="presentation" ng-class="{active: predicate=='imdbRating'}"><a href ng-click="predicate='imdbRating';reverse=!reverse">IMDB Rating</a></li>
+					<li role="presentation" ng-class="{active: predicate=='Title'}"><a href ng-click="predicate='Title';reverse=!reverse">Title</a></li>
+					<li role="presentation" ng-class="{active: predicate=='Year'}"><a href ng-click="predicate='Year';reverse=!reverse">Year</a></li>
+				</ul>
+			</div>
 			<div>
 				<ul class="movieList">
-					<li class="movieListItem" ng-repeat="movie in ctrl.allLists[ctrl.currentlySelectedList].movies track by $index">
+					<li class="movieListItem" ng-repeat="movie in ctrl.allLists[ctrl.currentlySelectedList].movies | orderBy:predicate:reverse | filter:ctrl.searchQuery">
 						<movie deletelink="true" trailer="true" imdb="true"> </movie>
 					</li>
 				</ul>
