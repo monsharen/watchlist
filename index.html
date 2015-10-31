@@ -46,7 +46,7 @@
 			<nav class="navbar navbar-inverse">
 				<ul class="nav navbar-nav">
 					<li ng-repeat="list in ctrl.allLists track by $index" role="presentation" ng-class="{active: $index==ctrl.currentlySelectedList}" >
-						<a href ng-click="ctrl.currentlySelectedList = $index" ng-dblclick="ctrl.renameList($index)">{{list.name}} <span class="badge">{{list.movies.length}}</span></a>
+						<a href ng-click="ctrl.selectList($index)" ng-dblclick="ctrl.renameList($index)">{{list.name}} <span class="badge">{{list.movies.length}}</span></a>
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right"> 

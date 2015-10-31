@@ -22,7 +22,7 @@ movieApp.directive('movie', function() {
                     (renderImdb ? '<div><img class="imdbRating" src="imdb.png" />{{movie.imdbRating}}</div>' : '') +
                     (renderAdd ? button("addMovie", "glyphicon-pencil", "Add", "btn-success") : '') +
                     (trailer ? button("playTrailer", "glyphicon-play-circle", "Trailer", "btn-default") : '') +
-                    (renderMove ? button("moveMovie", "glyphicon-transfer", "Move", "btn-warning") : '') +
+                    (renderMove ? button("move", "glyphicon-transfer", "Move", "btn-warning") : '') +
                     (renderDelete ? button("removeMovie", "glyphicon-trash", "Remove", "btn-danger") : '') +
                 '</div>';
 

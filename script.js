@@ -8,6 +8,7 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'alertif
 	this.trailerPlaying = false;
 	this.searchResults = [];
 	this.searchQuery = "";
+	this.moveAction = null;
 
 	this.authenticationToken = "";
 	this.loadingIndicators = 0;
@@ -29,7 +30,7 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'alertif
 
 		omdbService.getFullMovieDetails(movie.imdbID, 
 			function(fullMovie) {
-				ctrl.allLists[ctrl.currentlySelectedList].movies.push(fullMovie);
+				ctrl.addMovieInternal(fullMovie, ctrl.currentlySelectedList);
 				ctrl.upload();
 			},
 			function(error) {
@@ -41,6 +42,10 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'alertif
 		);
 	};
 
+	this.addMovieInternal = function(movie, listIndex) {
+		ctrl.allLists[listIndex].movies.push(movie);
+	}
+
 	this.removeMovie = function(movie) {
 		var i = ctrl.allLists[ctrl.currentlySelectedList].movies.indexOf(movie);
 
@@ -48,15 +53,50 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'alertif
 			return;
 		}
 
-		console.log("found movie at pos " + i);
+		ctrl.removeMovieInternal(movie, ctrl.currentlySelectedList,
+			function() {
+				alertify.success("'" + movie.Title + "' have been removed");
+			},
+			function(error) {
+				alertify.error("Failed to remove '" + movie.Title + "'");
+			}
+		);
+	};
+
+	this.removeMovieInternal = function(movie, listIndex, onSuccess, onError) {
+		var i = ctrl.allLists[listIndex].movies.indexOf(movie);
 		if(i == -1) {
-			console.log("failed to find movie in database. aborting");
+			onError("Failed to find movie in list");
 			return;
 		}
 
-		ctrl.allLists[ctrl.currentlySelectedList].movies.splice(i, 1);
-		ctrl.upload();
+		ctrl.allLists[listIndex].movies.splice(i, 1);
+		onSuccess();
+	};
 
+	this.selectList = function(listIndex) {
+
+		if (ctrl.moveAction) {
+			if (confirm("Are you sure you wish to move '" + ctrl.moveAction.movie.Title + "' to '" + ctrl.allLists[listIndex].name + "'?")) {
+				var moveActionCopy = ctrl.moveAction;
+				ctrl.addMovieInternal(moveActionCopy.movie, listIndex);
+				console.log("successfully added movie to new list");
+				ctrl.removeMovieInternal(moveActionCopy.movie, ctrl.currentlySelectedList,
+					function() {
+						alertify.success("'" + moveActionCopy.movie.Title + "' was moved to '" + ctrl.allLists[listIndex].name + "'");
+						console.log("successfully removed movie from old list");
+						ctrl.upload();
+					},
+					function(error) {
+						console.log("failed to remove movie from old list");
+					}
+				);
+			}
+		} else {
+			ctrl.currentlySelectedList = listIndex;
+		}
+
+		ctrl.moveAction = null;
 	};
 
 	this.playTrailer = function(movie) {
@@ -201,6 +241,11 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'alertif
 				ctrl.hideLoading();
 			}
 		);
+	};
+
+	this.move = function(movie, listIndex) {
+		alertify.log("Now click on a list to move '" + movie.Title + "' there");
+		ctrl.moveAction = {movie: movie, fromList: listIndex};
 	};
 
 	this.login = function() {
