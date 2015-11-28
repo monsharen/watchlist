@@ -53,18 +53,19 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'alertif
 	this.removeMovie = function(movie) {
 		var i = ctrl.allLists[ctrl.currentlySelectedList].movies.indexOf(movie);
 
-		if (!confirm('Are you sure you wish to delete "' + movie.Title + '"?')) {
-			return;
-		}
-
-		ctrl.removeMovieInternal(movie, ctrl.currentlySelectedList,
-			function() {
-				alertify.success("'" + movie.Title + "' have been removed");
-			},
-			function(error) {
-				alertify.error("Failed to remove '" + movie.Title + "'");
-			}
-		);
+		alertify.confirm('Are you sure you wish to delete "' + movie.Title + '"?', function () {
+		    ctrl.removeMovieInternal(movie, ctrl.currentlySelectedList,
+				function() {
+					alertify.success("'" + movie.Title + "' have been removed");
+					ctrl.upload();
+				},
+				function(error) {
+					alertify.error("Failed to remove '" + movie.Title + "'");
+				}
+			);
+		}, function() {
+		    // user clicked "cancel"
+		});		
 	};
 
 	this.removeMovieInternal = function(movie, listIndex, onSuccess, onError) {
@@ -81,10 +82,8 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'alertif
 	this.selectList = function(listIndex) {
 
 		if (ctrl.moveAction) {
-				
-
-			if (confirm("Are you sure you wish to move '" + ctrl.moveAction.movie.Title + "' to '" + ctrl.allLists[listIndex].name + "'?")) {
-				var moveActionCopy = ctrl.moveAction;
+			var moveActionCopy = ctrl.moveAction;
+			alertify.okBtn("Move").confirm("Are you sure you wish to move '" + ctrl.moveAction.movie.Title + "' to '" + ctrl.allLists[listIndex].name + "'?", function () {
 				ctrl.addMovieInternal(moveActionCopy.movie, listIndex);
 				console.log("successfully added movie to new list");
 				ctrl.removeMovieInternal(moveActionCopy.movie, ctrl.currentlySelectedList,
@@ -97,7 +96,10 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'alertif
 						console.log("failed to remove movie from old list");
 					}
 				);
-			}
+			}, function() {
+			    // user clicked "cancel"
+			});
+
 		} else {
 			ctrl.currentlySelectedList = listIndex;
 		}
@@ -157,19 +159,19 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'alertif
 			return;
 		}
 
-		if (!confirm('Are you sure you wish to delete the list "' + list.name + '"?')) {
-			return;
-		}
+		alertify.confirm('Are you sure you wish to delete the list "' + list.name + '"?', function () {
+		    console.log("removing list with index " + ctrl.currentlySelectedList);
+			ctrl.allLists.splice(ctrl.currentlySelectedList, 1);
 
-		console.log("removing list with index " + ctrl.currentlySelectedList);
-		ctrl.allLists.splice(ctrl.currentlySelectedList, 1);
+			if (ctrl.allLists.length == 0) {
+				ctrl.allLists = dropboxService.getEmptyFile();
+			}
 
-		if (ctrl.allLists.length == 0) {
-			ctrl.allLists = dropboxService.getEmptyFile();
-		}
-
-		ctrl.upload();
-		ctrl.currentlySelectedList = 0;
+			ctrl.upload();
+			ctrl.currentlySelectedList = 0;
+		}, function() {
+		    // user clicked "cancel"
+		});
 	};
 
 	this.search = function() {
