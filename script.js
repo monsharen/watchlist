@@ -21,6 +21,10 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'alertif
 		}
 	};
 
+	this.info = function() {
+		alertify.alert("To search type the name of a movie, or use the pattern imdb:[imdb id] to find exact matches");
+	};
+
 	this.addMovie = function(movie) {
 		console.log("adding movie");
 		console.log(movie);
@@ -77,6 +81,8 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'alertif
 	this.selectList = function(listIndex) {
 
 		if (ctrl.moveAction) {
+				
+
 			if (confirm("Are you sure you wish to move '" + ctrl.moveAction.movie.Title + "' to '" + ctrl.allLists[listIndex].name + "'?")) {
 				var moveActionCopy = ctrl.moveAction;
 				ctrl.addMovieInternal(moveActionCopy.movie, listIndex);

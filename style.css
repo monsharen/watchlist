@@ -73,7 +73,7 @@ body {
 }
 
 #searchForm {
-	text-align: -webkit-center;	
+	/* text-align: -webkit-center;	*/
 }
 
 #searchResult {
@@ -95,6 +95,14 @@ body {
 	border: 0;
 	border-radius: 0;
 	color: antiquewhite;
+	font-size: 2em;
+	width: 95%;
+}
+
+.infoicon {
+	width: 4%;
+    text-align: center;
+    font-size: 1.5em;
 }
 
 /*
