@@ -3,7 +3,8 @@ movieApp.service('authService', ['$http', function($http) {
 	var authService = this;
 
 	this.clientId = "5p2k4moufxk2iib";
-	this.redirectUri = "https://monsharen.github.io/watchlist/index.html";
+	//this.redirectUri = "https://monsharen.github.io/watchlist/index.html";
+	this.redirectUri = "https://www.movie.pizza/";
 	this.responseType = "token";
 
 	this.authenticate = function() {
