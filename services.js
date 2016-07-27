@@ -204,7 +204,7 @@ movieApp.service('searchService', [ 'omdbService', function(omdbService) {
 			var end = query.indexOf("/", start);
 			var imdbId = query.substring(start, end);
 
-			console.Log("searching for imdbId " + imdbId);
+			console.log("searching for imdbId " + imdbId);
 
 			this.searchByImdbId(imdbId, onSuccess, onError, onComplete);
 		} else {
