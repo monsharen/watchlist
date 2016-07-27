@@ -197,20 +197,12 @@ movieApp.service('searchService', [ 'omdbService', function(omdbService) {
 
 		if (query.indexOf('imdb:') === 0) {
 			var imdbId = query.substring(5);
-
-			omdbService.getFullMovieDetails(imdbId, 
-				function onFullMovieDetailsSuccess(movie) {
-					var movieResults = [];
-					movieResults.push(movie);
-					onSuccess(movieResults);
-				}, 
-				function onFullMovieDetailsError(error) {
-					onError(error);
-				},
-				function onFullMovieDetailsComplete() {
-					onComplete();
-				}
-			);
+			this.searchByImdbId(imdbId, onSuccess, onError, onComplete);
+		} else if (query.indexOf('imdb.com/title') === 0) {
+			var start = query.indexOf("/title/") + 7;
+			var end = query.indexOf("/", start);
+			var imdbId = str.substring(start, end);
+			this.searchByImdbId(imdbId, onSuccess, onError, onComplete);
 		} else {
 			omdbService.find(query, 				
 				function onFindSuccess(partialMovieDetails) {
@@ -224,5 +216,21 @@ movieApp.service('searchService', [ 'omdbService', function(omdbService) {
 				}
 			);
 		}
+	};
+
+	this.searchByImdbId = function(imdbId, onSuccess, onError, onComplete) {
+		omdbService.getFullMovieDetails(imdbId, 
+			function onFullMovieDetailsSuccess(movie) {
+				var movieResults = [];
+				movieResults.push(movie);
+				onSuccess(movieResults);
+			}, 
+			function onFullMovieDetailsError(error) {
+				onError(error);
+			},
+			function onFullMovieDetailsComplete() {
+				onComplete();
+			}
+		);
 	};
 }]);	
