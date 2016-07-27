@@ -199,9 +199,13 @@ movieApp.service('searchService', [ 'omdbService', function(omdbService) {
 			var imdbId = query.substring(5);
 			this.searchByImdbId(imdbId, onSuccess, onError, onComplete);
 		} else if (query.indexOf('imdb.com/title') === 0) {
+
 			var start = query.indexOf("/title/") + 7;
 			var end = query.indexOf("/", start);
 			var imdbId = str.substring(start, end);
+
+			console.Log("searching for imdbId " + imdbId);
+
 			this.searchByImdbId(imdbId, onSuccess, onError, onComplete);
 		} else {
 			omdbService.find(query, 				
