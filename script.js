@@ -175,12 +175,12 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'alertif
 	};
 
 	this.reloadMovie = function(movie) {
-		//var i = ctrl.allLists[ctrl.currentlySelectedList].movies.indexOf(movie);
+		var i = ctrl.allLists[ctrl.currentlySelectedList].movies.indexOf(movie);
+		
 		ctrl.showLoading();
 		omdbService.getFullMovieDetails(movie.imdbID, 
 			function(fullMovie) {
-				movie = fullMovie;
-				//ctrl.addMovieInternal(fullMovie, ctrl.currentlySelectedList);
+				ctrl.allLists[ctrl.currentlySelectedList].movies[i] = fullMovie;
 				ctrl.upload();
 			},
 			function(error) {
