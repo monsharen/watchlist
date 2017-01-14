@@ -73,8 +73,9 @@
 					<li ng-repeat="list in ctrl.allLists track by $index" role="presentation" ng-class="{active: $index==ctrl.currentlySelectedList}" >
 						<a href ng-click="ctrl.selectList($index)" ng-dblclick="ctrl.renameList($index)">{{list.name}} <span class="badge">{{list.movies.length}}</span></a>
 					</li>
-					<li><a href ng-click="ctrl.createNewList()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></li>
-					<li><a href ng-click="ctrl.deleteList()"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></li>
+					<li><a href ng-click="ctrl.createNewList()" title="Create new list"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></li>
+					<li><a href ng-click="ctrl.deleteList()" title="Delete current list"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></li>
+					<li><a href ng-click="ctrl.refreshMoviesInList()" title="Refresh all movies in list"><span class="glyphicon glyphicon glyphicon-refresh" aria-hidden="true"></span></a></li>
 				</ul>
 			</nav>
 			<div>

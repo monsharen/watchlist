@@ -174,6 +174,24 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'alertif
 		});
 	};
 
+	this.reloadMovie = function(movie) {
+		//var i = ctrl.allLists[ctrl.currentlySelectedList].movies.indexOf(movie);
+		ctrl.showLoading();
+		omdbService.getFullMovieDetails(movie.imdbID, 
+			function(fullMovie) {
+				movie = fullMovie;
+				//ctrl.addMovieInternal(fullMovie, ctrl.currentlySelectedList);
+				ctrl.upload();
+			},
+			function(error) {
+				alertify.error("Failed to retrieve full movie details from OMDB.");
+			},
+			function() {
+				ctrl.hideLoading();
+			}
+		);
+	};
+
 	this.search = function() {
 		ctrl.showLoading();
 		searchService.search(ctrl.searchQuery, 

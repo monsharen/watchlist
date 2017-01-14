@@ -24,6 +24,7 @@ movieApp.directive('movie', function() {
                     (trailer ? button("playTrailer", "glyphicon-play-circle", "Trailer", "btn-default") : '') +
                     (renderMove ? button("move", "glyphicon-transfer", "Move", "btn-warning") : '') +
                     (renderDelete ? button("removeMovie", "glyphicon-trash", "Remove", "btn-danger") : '') +
+                    button("reloadMovie", "glyphicon-refresh", "Reload", "btn-warning") +
                 '</div>';
 
             
