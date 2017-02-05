@@ -4,7 +4,6 @@ movieApp.service('authService', ['$http', function($http) {
 
 	this.clientId = "5p2k4moufxk2iib";
 	this.redirectUri = "https://monsharen.github.io/watchlist/index.html";
-	//this.redirectUri = "https://www.movie.pizza/";
 	this.responseType = "token";
 
 	this.authenticate = function() {
@@ -22,7 +21,7 @@ movieApp.service('authService', ['$http', function($http) {
 
 	this.isUserAuthenticated = function(onSuccess, onError) {
 
-		var authToken = this.getFromCache("authToken");
+		var authToken = authService.getFromCache("authToken");
 
 		if (authToken != null) {
 			return authToken;
@@ -32,7 +31,7 @@ movieApp.service('authService', ['$http', function($http) {
 		authToken = params["/access_token"];
 
 		if (authToken != null) {
-			this.putIntoCache("authToken", authToken);
+			authService.putIntoCache("authToken", authToken);
 			onSuccess(authToken);
 		} else {
 			onError();
