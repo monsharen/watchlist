@@ -22,6 +22,7 @@ movieApp.service('authService', ['$http', function($http) {
 	this.isUserAuthenticated = function(onSuccess, onError) {
 
 		var authToken = authService.getFromCache("authToken");
+		console.log("authToken from cache: " + authToken);
 
 		if (authToken != null) {
 			return authToken;
@@ -29,6 +30,8 @@ movieApp.service('authService', ['$http', function($http) {
 
 		var params = authService.getHashParams();
 		authToken = params["/access_token"];
+
+		console.log("authToken from url: " + authToken);
 
 		if (authToken != null) {
 			authService.putIntoCache("authToken", authToken);
