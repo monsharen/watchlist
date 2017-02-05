@@ -13,7 +13,7 @@ movieApp.service('authService', ['$http', function($http) {
 
 	this.logout = function() {
 		authService.removeItem("authToken");
-		window.location.href = redirectUri;
+		window.location.href = authService.redirectUri;
 	}
 
 	this.getAuthenticationUrl = function() {
