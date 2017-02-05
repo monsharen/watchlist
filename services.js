@@ -10,7 +10,11 @@ movieApp.service('authService', ['$http', function($http) {
 		var url = authService.getAuthenticationUrl();
 		window.location.href = url;
 	};
-	
+
+	this.logout = function() {
+		authService.removeItem("authToken");
+		window.location.href = redirectUri;
+	}
 
 	this.getAuthenticationUrl = function() {
 		return 'https://www.dropbox.com/1/oauth2/authorize?' + 
@@ -50,6 +54,12 @@ movieApp.service('authService', ['$http', function($http) {
 		    return localStorage.getItem(key);
 		}
 		return null;
+	}
+
+	this.removeItem = function(key) {
+		if (typeof(Storage) !== "undefined") {
+		    localStorage.removeItem(key);
+		}
 	}
 
 	this.getUrlParams = function() {

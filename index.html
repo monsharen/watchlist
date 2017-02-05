@@ -57,7 +57,8 @@
 
 			<form id="searchForm" ng-submit="ctrl.search()">
 				<input id="searchInput" type="text" ng-model="ctrl.searchQuery" placeholder="Search for movie..." autocomplete="off">
-				<a href ng-click="ctrl.info()"><span class="glyphicon glyphicon-info-sign infoicon" aria-hidden="true"></span></a>
+				<a href ng-click="ctrl.info()" title="Information"><span class="glyphicon glyphicon-info-sign infoicon" aria-hidden="true"></span></a>
+				<a href ng-click="ctrl.logout()" title="Log out"><span class="glyphicon glyphicon-log-out infoicon" aria-hidden="true"></span></a>
 			</form>
 			<div id="searchResult" ng-show="ctrl.searchResults.length > 0">
 				<ul class="movieList">

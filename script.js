@@ -278,6 +278,10 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'alertif
 		authService.authenticate();
 	};
 
+	this.logout = function() {
+		authService.logout();
+	};
+
 	authService.isUserAuthenticated(
 		function (token) {
 			console.log("user is authenticated");
