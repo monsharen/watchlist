@@ -21,15 +21,36 @@ movieApp.service('authService', ['$http', function($http) {
 	};
 
 	this.isUserAuthenticated = function(onSuccess, onError) {
-		var params = authService.getHashParams();
-		var authToken = params["/access_token"];
+
+		var authToken = this.getFromCache("authToken");
 
 		if (authToken != null) {
+			return authToken;
+		}
+
+		var params = authService.getHashParams();
+		authToken = params["/access_token"];
+
+		if (authToken != null) {
+			this.putIntoCache("authToken", authToken);
 			onSuccess(authToken);
 		} else {
 			onError();
 		}
 	};
+
+	this.putIntoCache = function(key, value) {
+		if (typeof(Storage) !== "undefined") {
+		    localStorage.setItem(key, value);
+		}
+	}
+
+	this.getFromCache = function(key) {
+		if (typeof(Storage) !== "undefined") {
+		    return localStorage.getItem(key);
+		}
+		return null;
+	}
 
 	this.getUrlParams = function() {
 		var urlParams = document.location.search.split('+').join(' ');
