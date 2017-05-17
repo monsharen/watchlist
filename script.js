@@ -18,7 +18,7 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'alertif
 	this.captureKeyPress = function(keyId) {
 		if (keyId === 27) {
 			ctrl.clearSearch();
-			ctrl.moveAction = null;
+			ctrl.cancelMove();
 		}
 	};
 
@@ -81,32 +81,6 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'alertif
 	};
 
 	this.selectList = function(listIndex) {
-		/*
-		if (ctrl.moveAction) {
-			var moveActionCopy = ctrl.moveAction;
-			alertify.okBtn("Move").confirm("Are you sure you wish to move '" + ctrl.moveAction.movie.Title + "' to '" + ctrl.allLists[listIndex].name + "'?", function () {
-				ctrl.addMovieInternal(moveActionCopy.movie, listIndex);
-				console.log("successfully added movie to new list");
-				ctrl.removeMovieInternal(moveActionCopy.movie, ctrl.currentlySelectedList,
-					function() {
-						alertify.success("'" + moveActionCopy.movie.Title + "' was moved to '" + ctrl.allLists[listIndex].name + "'");
-						console.log("successfully removed movie from old list");
-						ctrl.upload();
-					},
-					function(error) {
-						console.log("failed to remove movie from old list");
-					}
-				);
-			}, function() {
-			    // user clicked "cancel"
-			});
-
-		} else {
-			ctrl.currentlySelectedList = listIndex;
-		}
-
-		ctrl.moveAction = null;
-		*/
 		ctrl.currentlySelectedList = listIndex;
 	};
 
@@ -297,8 +271,12 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'alertif
 			    // user clicked "cancel"
 			});
 		}
+		ctrl.cancelMove();
+	};
+
+	this.cancelMove = function() {
 		ctrl.moveAction = null;
-	}
+	};
 
 	this.login = function() {
 		authService.authenticate();
