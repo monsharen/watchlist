@@ -53,7 +53,7 @@
 		</div>
 
 		<div ng-if="ctrl.authenticationToken">
-			<div id="videoElement" ng-click="ctrl.closeTrailer()" ng-show="ctrl.trailerPlaying"></div>
+			<div class="modalWindow" ng-click="ctrl.closeTrailer()" ng-show="ctrl.trailerPlaying"></div>
 
 			<form id="searchForm" ng-submit="ctrl.search()">
 				<input id="searchInput" type="text" ng-model="ctrl.searchQuery" placeholder="Search for movie..." autocomplete="off">
@@ -92,12 +92,14 @@
 			</div>
 		</div>
 
-		<div id="moveMenu" ng-show="ctrl.moveAction">
-			<ul>
-				<li ng-repeat="list in ctrl.allLists track by $index">
-					<a href="#">{{list.name}} <span class="badge">{{list.movies.length}}</span></a>
-				</li>
-			</ul>
+		<div class="modalWindow" ng-show="ctrl.moveAction">
+			<div class="moveMenu">
+				<ul>
+					<li ng-repeat="list in ctrl.allLists track by $index">
+						<a href="#">{{list.name}} <span class="badge">{{list.movies.length}}</span></a>
+					</li>
+				</ul>
+			</div>
 		</div>
 
 		<script>
