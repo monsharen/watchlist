@@ -18,6 +18,7 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'alertif
 	this.captureKeyPress = function(keyId) {
 		if (keyId === 27) {
 			ctrl.clearSearch();
+			ctrl.moveAction = null;
 		}
 	};
 
@@ -80,7 +81,7 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'alertif
 	};
 
 	this.selectList = function(listIndex) {
-
+		/*
 		if (ctrl.moveAction) {
 			var moveActionCopy = ctrl.moveAction;
 			alertify.okBtn("Move").confirm("Are you sure you wish to move '" + ctrl.moveAction.movie.Title + "' to '" + ctrl.allLists[listIndex].name + "'?", function () {
@@ -105,6 +106,8 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'alertif
 		}
 
 		ctrl.moveAction = null;
+		*/
+		ctrl.currentlySelectedList = listIndex;
 	};
 
 	this.playTrailer = function(movie) {
@@ -273,6 +276,29 @@ movieApp.controller('MovieController', ['$scope', '$http', '$location', 'alertif
 		alertify.log("Now click on a list to move '" + movie.Title + "' there");
 		ctrl.moveAction = {movie: movie, fromList: listIndex};
 	};
+
+	this.moveToList = function(listIndex) {
+		if (ctrl.moveAction) {
+			var moveActionCopy = ctrl.moveAction;
+			alertify.okBtn("Move").confirm("Are you sure you wish to move '" + ctrl.moveAction.movie.Title + "' to '" + ctrl.allLists[listIndex].name + "'?", function () {
+				ctrl.addMovieInternal(moveActionCopy.movie, listIndex);
+				console.log("successfully added movie to new list");
+				ctrl.removeMovieInternal(moveActionCopy.movie, ctrl.currentlySelectedList,
+					function() {
+						alertify.success("'" + moveActionCopy.movie.Title + "' was moved to '" + ctrl.allLists[listIndex].name + "'");
+						console.log("successfully removed movie from old list");
+						ctrl.upload();
+					},
+					function(error) {
+						console.log("failed to remove movie from old list");
+					}
+				);
+			}, function() {
+			    // user clicked "cancel"
+			});
+		}
+		ctrl.moveAction = null;
+	}
 
 	this.login = function() {
 		authService.authenticate();
