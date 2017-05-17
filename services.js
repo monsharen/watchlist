@@ -229,7 +229,7 @@ movieApp.service('searchService', [ 'omdbService', function(omdbService) {
 		if (query.indexOf('imdb:') === 0) {
 			var imdbId = query.substring(5);
 			this.searchByImdbId(imdbId, onSuccess, onError, onComplete);
-		} else if (query.indexOf('imdb.com/title') != -1) {
+		} else if (query.indexOf('imdb.com/title') != -1){
 
 			var start = query.indexOf("/title/") + 7;
 			var end = query.indexOf("/", start);
