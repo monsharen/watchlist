@@ -95,7 +95,7 @@
 		<div class="modalWindow" ng-show="ctrl.moveAction">
 			<div class="moveMenu">
 				<h3>Move {{ctrl.moveAction.movie.Title}}</h3>
-				<button ng-repeat="list in ctrl.allLists track by $index" type="button" class="btn btn-primary btn-lg btn-block">{{list.name}} <span class="badge">{{list.movies.length}}</span></button>
+				<button ng-repeat="list in ctrl.allLists track by $index" ng-click="ctrl.moveToList($index)" type="button" class="btn btn-primary btn-lg btn-block">{{list.name}} <span class="badge">{{list.movies.length}}</span></button>
 			</div>
 		</div>
 
