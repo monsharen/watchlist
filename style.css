@@ -99,6 +99,16 @@ body {
 	width: 95%;
 }
 
+#moveMenu {
+	text-align: -webkit-center;
+	position: fixed;
+	top: 4em;
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	background-color: #222;
+}
+
 .infoicon {
 	width: 2%;
     text-align: center;

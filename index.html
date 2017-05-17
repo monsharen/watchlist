@@ -92,10 +92,10 @@
 			</div>
 		</div>
 
-		<div id="moveMenu">
+		<div id="moveMenu" ng-show="ctrl.moveAction">
 			<ul>
 				<li ng-repeat="list in ctrl.allLists track by $index">
-					<a href="#">{{list.name}}</a>
+					<a href="#">{{list.name}} <span class="badge">{{list.movies.length}}</span></a>
 				</li>
 			</ul>
 		</div>
