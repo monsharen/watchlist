@@ -53,7 +53,7 @@
 		</div>
 
 		<div ng-if="ctrl.authenticationToken">
-			<div class="modalWindow" ng-click="ctrl.closeTrailer()" ng-show="ctrl.trailerPlaying"></div>
+			<div id="videoElement" class="modalWindow" ng-click="ctrl.closeTrailer()" ng-show="ctrl.trailerPlaying"></div>
 
 			<form id="searchForm" ng-submit="ctrl.search()">
 				<input id="searchInput" type="text" ng-model="ctrl.searchQuery" placeholder="Search for movie..." autocomplete="off">
