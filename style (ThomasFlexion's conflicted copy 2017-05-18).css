@@ -81,15 +81,13 @@ body {
 	background-color: #222;
 }
 
-.modalWindow {
+#videoElement {
 	text-align: -webkit-center;
 	position: fixed;
-	top: 0;
+	top: 4em;
 	z-index: 1;
 	width: 100%;
 	height: 100%;
-	padding-top: 4em;
-	background-color: rgba(0,0,0,0.7);
 }
 
 #searchInput {
@@ -99,15 +97,6 @@ body {
 	color: antiquewhite;
 	font-size: 2em;
 	width: 95%;
-}
-
-.moveMenu {
-	background-color: #222;
-	display: inline-block;
-	list-style-type: none;
-	color: #9d9d9d;
-	padding: 2em;
-	min-width: 30%;
 }
 
 .infoicon {
