@@ -1,5 +1,5 @@
 # About Watchlist
-A movie watchlist management system using Dropbox for storage and authentication (http://www.dropbox.com), the Open Movie Database API for searching (http://omdbapi.com) and the Youtube embed API for trailers. The entire project can be hosted in a public folder on Dropbox without the need for additional servers.
+A movie watchlist management system using Dropbox for storage and authentication (http://www.dropbox.com), the Open Movie Database API for searching (http://omdbapi.com) and the Youtube embed API for trailers.
 
 The frontend is built with AngularJs and Bootstrap with a few home cooked components. The user's data is stored on their own dropbox account.
 
